@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EfCrossDbSample.Migrations.AppDbContext2Migrations
 {
-    public partial class EFCrossDb2 : Migration
+    public partial class EfCrossDb2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

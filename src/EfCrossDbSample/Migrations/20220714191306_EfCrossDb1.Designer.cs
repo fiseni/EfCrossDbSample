@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace EfCrossDbSample.Migrations.AppDbContext2Migrations
+namespace EfCrossDbSample.Migrations
 {
-    [DbContext(typeof(AppDbContext2))]
-    [Migration("20220714174528_EFCrossDb2")]
-    partial class EFCrossDb2
+    [DbContext(typeof(AppDbContext))]
+    [Migration("20220714191306_EfCrossDb1")]
+    partial class EfCrossDb1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,6 +37,35 @@ namespace EfCrossDbSample.Migrations.AppDbContext2Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Countries");
+                });
+
+            modelBuilder.Entity("EfCrossDbSample.Customer", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CountryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
+
+                    b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("EfCrossDbSample.Customer", b =>
+                {
+                    b.HasOne("EfCrossDbSample.Country", "Country")
+                        .WithMany()
+                        .HasForeignKey("CountryId");
+
+                    b.Navigation("Country");
                 });
 #pragma warning restore 612, 618
         }
